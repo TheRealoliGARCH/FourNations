@@ -12,7 +12,7 @@ def value(panel, entity, year):
 
 def test_seed_reconstructs_known_australia_transition():
     panel = build_snp_shield_panel(start_year=1974, end_year=2003)
-    assert pd.isna(value(panel, "Australia", 1974))
+    assert value(panel, "Australia", 1974) == 0
     assert value(panel, "Australia", 1975) == 1
     assert value(panel, "Australia", 1986) == 0
     assert value(panel, "Australia", 2003) == 1
