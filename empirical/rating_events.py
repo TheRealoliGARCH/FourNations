@@ -46,6 +46,7 @@ def events_to_annual_membership(
         for year in range(start_year, end_year + 1):
             obs_date = pd.Timestamp(year=year, month=observation_month, day=observation_day)
             prior = group[group["event_date"] <= obs_date]
+
             if prior.empty:
                 rating = pd.NA
                 evidence_id = pd.NA
@@ -65,4 +66,6 @@ def events_to_annual_membership(
                 }
             )
 
-    return pd.DataFrame(rows)
+    result = pd.DataFrame(rows)
+    result["aaa_member"] = result["aaa_member"].astype("Int64")
+    return result
