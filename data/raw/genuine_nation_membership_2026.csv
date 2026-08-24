@@ -1,0 +1,19 @@
+entity,year,nuclear_member,aaa_primary_member,aaa_any_agency_member,genuine_primary,genuine_extended,evidence_id,notes
+Russia,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only in source table
+United States,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only after cited rating downgrades
+China,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only
+France,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only
+United Kingdom,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only
+India,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only
+Pakistan,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only
+North Korea,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only
+Israel,2026,1,0,0,1,1,GenuineNations2026-Table1,Nuclear only
+Germany,2026,0,1,1,1,1,GenuineNations2026-Table2,Core Eurozone AAA
+Canada,2026,0,1,1,1,1,GenuineNations2026-Table2,Consistent AAA
+Switzerland,2026,0,1,1,1,1,GenuineNations2026-Table2,BIS host and financial anchor
+Singapore,2026,0,1,1,1,1,GenuineNations2026-Table2,Asian financial hub
+Australia,2026,0,1,1,1,1,GenuineNations2026-Table2,Resource-rich AAA
+Denmark,2026,0,1,1,1,1,GenuineNations2026-Table2,Nordic AAA
+Luxembourg,2026,0,0,1,0,1,GenuineNations2026-Table2,Extended any-agency membership noted in source
+Sweden,2026,0,0,1,0,1,GenuineNations2026-Table2,Extended any-agency membership noted in source
+New Zealand,2026,0,0,1,0,1,GenuineNations2026-Table2,Extended any-agency membership noted in source
