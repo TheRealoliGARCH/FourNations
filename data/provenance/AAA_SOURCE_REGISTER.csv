@@ -1,3 +1,4 @@
 source_id,provider,title,coverage,retrieval_date,license_or_access,raw_artifact,notes
-SPG-SOV-2026-SNAPSHOT,S&P Global Ratings,Sovereign Ratings List,2026 snapshot,2026-08-24,public regulatory/research page,data/raw/aaa_rating_intervals.csv,2026 observations only; no backward extrapolation
-SPG-DE-2026-04-24,S&P Global Ratings,Research Update: Germany AAA/A-1+ Ratings Affirmed,2026-04-24,2026-08-24,public regulatory page,data/raw/aaa_rating_intervals.csv,Explicit Germany affirmation date
+SPG-SOV-HISTORY,S&P Global Ratings,Sovereign Ratings History,Historical dated sovereign rating actions,2026-08-24,public regulatory/research material,data/raw/sovereign_rating_events.csv,Primary source for event reconstruction; populate only with dated evidence
+SPG-SOV-2025-STUDY,S&P Global Ratings,2025 Annual Global Sovereign Default And Rating Transition Study,Year-end 2025 study,2026-08-24,public regulatory/research material,data/raw/sovereign_rating_events.csv,Validation reference for the 2025 reconstruction
+SPG-SOV-2026-LIST,S&P Global Ratings,Sovereign Ratings List,Current ratings as of July 31 2026,2026-08-24,public regulatory/research material,data/raw/sovereign_rating_events.csv,Current snapshot only; not used as evidence for 2025 or earlier year-end states
