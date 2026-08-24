@@ -14,7 +14,8 @@ def test_event_state_carries_forward_only_after_first_event():
         }
     )
     out = events_to_annual_membership(events, 1999, 2002)
-    assert out["aaa_member"].tolist() == [pd.NA, 1, 1, 0]
+    assert pd.isna(out.iloc[0]["aaa_member"])
+    assert out["aaa_member"].iloc[1:].tolist() == [1, 1, 0]
 
 
 def test_unknown_history_is_missing_not_zero():
