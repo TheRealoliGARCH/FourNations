@@ -1,1 +1,8 @@
 entity,agency,rating,start_year,end_year,evidence_id,notes
+Australia,S&P,AAA,2026,2026,SPG-SOV-2026-SNAPSHOT,Verified annual snapshot; interval not extrapolated backward
+Canada,S&P,AAA,2026,2026,SPG-SOV-2026-SNAPSHOT,Verified annual snapshot
+Denmark,S&P,AAA,2026,2026,SPG-SOV-2026-SNAPSHOT,Verified annual snapshot
+Germany,S&P,AAA,2026,2026,SPG-DE-2026-04-24,Rating affirmed 24 April 2026
+Singapore,S&P,AAA,2026,2026,SPG-SOV-2026-SNAPSHOT,Verified annual snapshot
+Sweden,S&P,AAA,2026,2026,SPG-SOV-2026-SNAPSHOT,Verified annual snapshot
+Switzerland,S&P,AAA,2026,2026,SPG-SOV-2026-SNAPSHOT,Verified annual snapshot
