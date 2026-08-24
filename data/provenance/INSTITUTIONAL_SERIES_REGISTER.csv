@@ -1,0 +1,8 @@
+series_id,provider,dataset_or_flow,series_key_or_indicator,frequency,coverage_start,coverage_end,target_variable,workstream,status,notes
+WB_GDP,World Bank,World Development Indicators,NY.GDP.MKTP.CD,annual,,,GDP,historical_phase,registered,Direct WDI API candidate
+WB_GDP_GROWTH,World Bank,World Development Indicators,NY.GDP.MKTP.KD.ZG,annual,,,growth,historical_phase,registered,Direct WDI API candidate
+WB_INFLATION,World Bank,World Development Indicators,FP.CPI.TOTL.ZG,annual,,,inflation,zero_irp,registered,Direct WDI API candidate
+WB_CONSUMPTION_GROWTH,World Bank,World Development Indicators,NE.CON.PRVT.KD.ZG,annual,,,consumption_growth,zero_irp,registered,Direct WDI API candidate
+IMF_SDMX,IMF,SDMX API,TBD,TBD,,,macro_financial,phase_zero_irp,metadata_pending,Resolve exact dataflow and key before ingestion
+BIS_SDMX,BIS,SDMX API,TBD,TBD,,,financial_cycle,phase_zero_irp,metadata_pending,Resolve exact dataflow and key before ingestion
+OECD_SDMX,OECD,SDMX API,TBD,TBD,,,labor_consumption_prices,phase_labor_luxury,metadata_pending,Resolve exact dataflow and key before ingestion
