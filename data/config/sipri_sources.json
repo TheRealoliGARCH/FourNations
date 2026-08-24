@@ -1,0 +1,6 @@
+{
+  "provider": "SIPRI",
+  "nuclear": {"dataset": "World Nuclear Forces", "membership_rule": "SIPRI-classified nuclear-weapon-possessing state for the observation year"},
+  "military_expenditure": {"dataset": "Military Expenditure Database", "coverage_start": 1949, "coverage_end": 2025, "variables": ["local_currency_current", "usd_current", "usd_constant", "share_gdp", "per_capita"]},
+  "arms_transfers": {"dataset": "Arms Transfers Database", "coverage_start": 1950}
+}
