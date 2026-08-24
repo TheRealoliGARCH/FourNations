@@ -6,3 +6,6 @@ WB_CONSUMPTION_GROWTH,World Bank,World Development Indicators,NE.CON.PRVT.KD.ZG,
 IMF_SDMX,IMF,SDMX API,TBD,TBD,,,macro_financial,phase_zero_irp,metadata_pending,Resolve exact dataflow and key before ingestion
 BIS_SDMX,BIS,SDMX API,TBD,TBD,,,financial_cycle,phase_zero_irp,metadata_pending,Resolve exact dataflow and key before ingestion
 OECD_SDMX,OECD,SDMX API,TBD,TBD,,,labor_consumption_prices,phase_labor_luxury,metadata_pending,Resolve exact dataflow and key before ingestion
+SIPRI_NUCLEAR,SIPRI,World Nuclear Forces,yearbook membership,annual,1966,,nuclear_member,genuine_nation,registered,Annual SIPRI classification with edition-specific provenance
+SIPRI_MILEX,SIPRI,Military Expenditure Database,milex,annual,1949,2025,military_expenditure;military_burden,security_phase,registered,Country coverage varies and revisions are possible
+SIPRI_ARMS,SIPRI,Arms Transfers Database,arms transfers,annual,1950,,arms_transfer,security_robustness,registered,Robustness measure rather than baseline Genuine Nation membership
