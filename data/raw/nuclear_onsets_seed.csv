@@ -1,0 +1,10 @@
+entity,onset_year,onset_interpretation,evidence_id,notes
+United States,1945,first nuclear test,SIPRI-HIST-SEED-001,Seed onset convention
+Russia,1949,first Soviet nuclear test,SIPRI-HIST-SEED-002,Seed onset convention
+United Kingdom,1952,first nuclear test,SIPRI-HIST-SEED-003,Seed onset convention
+France,1960,first nuclear test,SIPRI-HIST-SEED-004,Seed onset convention
+China,1964,first nuclear test,SIPRI-HIST-SEED-005,Seed onset convention
+Israel,1967,estimated acquisition convention,SIPRI-HIST-SEED-006,Alternative onset years must be tested separately
+India,1974,first nuclear test,SIPRI-HIST-SEED-007,Weaponization convention may differ
+Pakistan,1998,first nuclear test,SIPRI-HIST-SEED-008,Alternative capability onset may differ
+North Korea,2006,first nuclear test,SIPRI-HIST-SEED-009,Seed onset convention
