@@ -11,9 +11,8 @@ from empirical.build_snp_shield_panel import build_snp_shield_panel
 from empirical.propagate_nuclear_scenarios import apply_onset_scenario, merge_with_shield
 from empirical.fournations_structural_tests import four_nation_cardinality_diagnostic, scenario_cardinality_invariance
 from empirical.fournations_scenario_summary import add_baseline_comparison, build_scenario_summary
-from empirical.fournations_empirical_characterization import (
-    baseline_deviations, cardinality_regimes, focal_window, regime_transitions,
-)
+from empirical.fournations_empirical_characterization import baseline_deviations, cardinality_regimes, focal_window, regime_transitions
+from empirical.fournations_robustness import deviation_detail, sensitivity_summary
 
 
 def build_scenario_onsets(base_dir):
@@ -21,10 +20,8 @@ def build_scenario_onsets(base_dir):
     scenarios = pd.read_csv(base_dir / "data/raw/nuclear_onset_scenarios.csv")
     sensitive = {"Israel", "India", "Pakistan"}
     fixed = seed.loc[~seed["entity"].isin(sensitive), ["entity", "onset_year"]]
-    out = {}
-    for scenario, group in scenarios.groupby("scenario", sort=True):
-        out[scenario] = pd.concat([fixed, group[["entity", "onset_year"]]], ignore_index=True)
-    return out
+    return {scenario: pd.concat([fixed, group[["entity", "onset_year"]]], ignore_index=True)
+            for scenario, group in scenarios.groupby("scenario", sort=True)}
 
 
 def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
@@ -45,20 +42,17 @@ def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
     diagnostic = four_nation_cardinality_diagnostic(panel)
     invariance = scenario_cardinality_invariance(panel)
     changes = invariance.loc[(invariance["scenario"] != "baseline") & invariance["four_nation_classification_changed"]].reset_index(drop=True)
-    summary = add_baseline_comparison(build_scenario_summary(diagnostic))
-    regimes = cardinality_regimes(diagnostic)
-    transitions = regime_transitions(diagnostic)
-    deviations = baseline_deviations(diagnostic)
-    window = focal_window(diagnostic)
     outputs = {
         "genuine_panel_documented_scenarios.csv": panel,
         "fournations_cardinality_invariance.csv": diagnostic,
         "fournations_classification_changes.csv": changes,
-        "fournations_scenario_summary.csv": summary,
-        "fournations_cardinality_regimes.csv": regimes,
-        "fournations_regime_transitions.csv": transitions,
-        "fournations_baseline_deviations.csv": deviations,
-        "fournations_focal_window.csv": window,
+        "fournations_scenario_summary.csv": add_baseline_comparison(build_scenario_summary(diagnostic)),
+        "fournations_cardinality_regimes.csv": cardinality_regimes(diagnostic),
+        "fournations_regime_transitions.csv": regime_transitions(diagnostic),
+        "fournations_baseline_deviations.csv": baseline_deviations(diagnostic),
+        "fournations_focal_window.csv": focal_window(diagnostic),
+        "fournations_sensitivity_summary.csv": sensitivity_summary(diagnostic),
+        "fournations_deviation_detail.csv": deviation_detail(diagnostic),
         "fournations_years.csv": diagnostic.loc[diagnostic["is_four_nation_year"], ["scenario", "year", "genuine_count", "distance_from_target"]].reset_index(drop=True),
     }
     for filename, frame in outputs.items():
