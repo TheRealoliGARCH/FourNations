@@ -43,17 +43,32 @@ jobs:
           test -f results/fournations_cardinality_invariance.csv
           test -f results/fournations_classification_changes.csv
           test -f results/fournations_years.csv
+          test -f results/fournations_scenario_summary.csv
           python - <<'PY'
           import pandas as pd
+          expected = {
+              'baseline',
+              'india_overt_1998',
+              'israel_late_1966',
+              'joint_documented',
+          }
           for path in [
               'results/genuine_panel_documented_scenarios.csv',
               'results/fournations_cardinality_invariance.csv',
-              'results/fournations_classification_changes.csv',
               'results/fournations_years.csv',
+              'results/fournations_scenario_summary.csv',
           ]:
               df = pd.read_csv(path)
               if df.empty:
                   raise SystemExit(f'Generated artifact is empty: {path}')
+          panel = pd.read_csv('results/genuine_panel_documented_scenarios.csv')
+          if panel['scenario'].isna().any() or set(panel['scenario']) != expected:
+              raise SystemExit('Generated panel scenario labels are invalid')
+          summary = pd.read_csv('results/fournations_scenario_summary.csv')
+          if set(summary['scenario']) != expected:
+              raise SystemExit('Scenario summary labels are invalid')
+          if not summary['four_nation_window_matches_baseline'].all():
+              raise SystemExit('FourNations window is not invariant across documented scenarios')
           PY
 
       - name: Upload structural-output artifacts
@@ -65,4 +80,5 @@ jobs:
             results/fournations_cardinality_invariance.csv
             results/fournations_classification_changes.csv
             results/fournations_years.csv
+            results/fournations_scenario_summary.csv
           if-no-files-found: error
