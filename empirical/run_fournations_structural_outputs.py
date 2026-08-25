@@ -28,10 +28,10 @@ def build_scenario_onsets(base_dir):
 
 
 def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
-    base_dir = Path(base_dir)
+    base_dir = Path(base_dir).resolve()
     output_dir = Path(output_dir)
     if not output_dir.is_absolute():
-        output_dir = base_dir / output_dir
+        output_dir = (base_dir / output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
     shield = build_snp_shield_panel(
@@ -53,6 +53,10 @@ def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
     panel.to_csv(output_dir / "genuine_panel_documented_scenarios.csv", index=False)
     diagnostic.to_csv(output_dir / "fournations_cardinality_invariance.csv", index=False)
     changes.to_csv(output_dir / "fournations_classification_changes.csv", index=False)
+    years = diagnostic.loc[diagnostic["is_four_nation_year"], [
+        "scenario", "year", "genuine_count", "distance_from_target"
+    ]].reset_index(drop=True)
+    years.to_csv(output_dir / "fournations_years.csv", index=False)
     return panel, diagnostic, changes
 
 
