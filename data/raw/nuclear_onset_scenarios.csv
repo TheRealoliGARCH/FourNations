@@ -1,0 +1,16 @@
+scenario,entity,onset_year,onset_interpretation,notes
+baseline,Israel,1967,estimated acquisition convention,Repository seed baseline
+baseline,India,1974,first nuclear test,Repository seed baseline
+baseline,Pakistan,1998,first nuclear test,Repository seed baseline
+late_israel,Israel,1979,alternative acquisition convention,Sensitivity placeholder; externally auditable convention required
+late_israel,India,1974,first nuclear test,Repository seed baseline retained
+late_israel,Pakistan,1998,first nuclear test,Repository seed baseline retained
+late_india,Israel,1967,estimated acquisition convention,Repository seed baseline retained
+late_india,India,1998,declared weapon-state convention,Sensitivity placeholder; externally auditable convention required
+late_india,Pakistan,1998,first nuclear test,Repository seed baseline retained
+late_pakistan,Israel,1967,estimated acquisition convention,Repository seed baseline retained
+late_pakistan,India,1974,first nuclear test,Repository seed baseline retained
+late_pakistan,Pakistan,1998,declared capability convention,Same-year control scenario; schema test only
+joint_late,Israel,1979,alternative acquisition convention,Sensitivity placeholder
+joint_late,India,1998,declared weapon-state convention,Sensitivity placeholder
+joint_late,Pakistan,1998,first nuclear test,Repository seed baseline retained
