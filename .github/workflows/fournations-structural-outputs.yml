@@ -1,0 +1,68 @@
+name: FourNations Structural Outputs
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'empirical/**'
+      - 'data/raw/nuclear_onsets_seed.csv'
+      - 'data/raw/nuclear_onset_scenarios.csv'
+      - 'data/raw/sovereign_rating_events.csv'
+      - 'tests/**'
+      - '.github/workflows/fournations-structural-outputs.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  generate-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas pytest
+
+      - name: Run FourNations structural-output generator
+        run: |
+          python empirical/run_fournations_structural_outputs.py --base-dir .
+
+      - name: Validate generated artifacts
+        run: |
+          test -f results/genuine_panel_documented_scenarios.csv
+          test -f results/fournations_cardinality_invariance.csv
+          test -f results/fournations_classification_changes.csv
+          test -f results/fournations_years.csv
+          python - <<'PY'
+          import pandas as pd
+          for path in [
+              'results/genuine_panel_documented_scenarios.csv',
+              'results/fournations_cardinality_invariance.csv',
+              'results/fournations_classification_changes.csv',
+              'results/fournations_years.csv',
+          ]:
+              df = pd.read_csv(path)
+              if df.empty:
+                  raise SystemExit(f'Generated artifact is empty: {path}')
+          PY
+
+      - name: Upload structural-output artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: fournations-structural-outputs
+          path: |
+            results/genuine_panel_documented_scenarios.csv
+            results/fournations_cardinality_invariance.csv
+            results/fournations_classification_changes.csv
+            results/fournations_years.csv
+          if-no-files-found: error
