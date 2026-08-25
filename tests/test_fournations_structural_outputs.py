@@ -13,7 +13,8 @@ def test_runner_generates_three_structural_outputs(tmp_path):
         "india_overt_1998,Israel,1967\nindia_overt_1998,India,1998\nindia_overt_1998,Pakistan,1998\n"
     )
     (repo / "data/raw/sovereign_rating_events.csv").write_text(
-        "entity,agency,event_date,rating\nAustralia,S&P,1957-01-01,AAA\n"
+        "entity,agency,event_date,rating,action,evidence_id\n"
+        "Australia,S&P,1957-01-01,AAA,snapshot,TEST-EVIDENCE\n"
     )
     panel, diagnostic, changes = run(repo, start_year=1973, end_year=1999)
     assert not panel.empty
