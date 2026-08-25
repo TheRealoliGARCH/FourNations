@@ -26,7 +26,8 @@ def scenario_delta(baseline, alternative):
 
 
 def merge_with_shield(nuclear_panel, shield_panel):
-    merged = nuclear_panel.merge(shield_panel, on=["entity", "year"], how="outer")
+    shield_columns = shield_panel.drop(columns=["scenario"], errors="ignore")
+    merged = nuclear_panel.merge(shield_columns, on=["entity", "year"], how="outer")
     merged["genuine_member"] = pd.Series(pd.NA, index=merged.index, dtype="Int64")
     merged.loc[merged["nuclear_member"] == 1, "genuine_member"] = 1
     observed_shield = merged["snp_shield_member"].notna() & merged["nuclear_member"].eq(0)
