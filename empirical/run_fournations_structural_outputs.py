@@ -13,15 +13,23 @@ from empirical.fournations_structural_tests import four_nation_cardinality_diagn
 from empirical.fournations_scenario_summary import add_baseline_comparison, build_scenario_summary
 from empirical.fournations_empirical_characterization import baseline_deviations, cardinality_regimes, focal_window, regime_transitions
 from empirical.fournations_robustness import deviation_detail, sensitivity_summary
+from empirical.fournations_onset_sensitivity import build_onset_grid, onset_grid_spec, summarize_grid
 
 
 def build_scenario_onsets(base_dir):
+    base_dir = Path(base_dir)
     seed = pd.read_csv(base_dir / "data/raw/nuclear_onsets_seed.csv")
     scenarios = pd.read_csv(base_dir / "data/raw/nuclear_onset_scenarios.csv")
     sensitive = {"Israel", "India", "Pakistan"}
     fixed = seed.loc[~seed["entity"].isin(sensitive), ["entity", "onset_year"]]
     return {scenario: pd.concat([fixed, group[["entity", "onset_year"]]], ignore_index=True)
             for scenario, group in scenarios.groupby("scenario", sort=True)}
+
+
+def _panel_for_onsets(onsets, scenario, shield, start_year, end_year):
+    panel = merge_with_shield(apply_onset_scenario(onsets, scenario, start_year, end_year), shield)
+    panel["scenario"] = scenario
+    return panel
 
 
 def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
@@ -31,15 +39,22 @@ def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
         output_dir = (base_dir / output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     shield = build_snp_shield_panel(base_dir / "data/raw/sovereign_rating_events.csv", start_year, end_year)
-    panels = []
-    for scenario, onsets in build_scenario_onsets(base_dir).items():
-        scenario_panel = merge_with_shield(apply_onset_scenario(onsets, scenario, start_year, end_year), shield)
-        scenario_panel["scenario"] = scenario
-        panels.append(scenario_panel)
+    scenario_onsets = build_scenario_onsets(base_dir)
+    panels = [_panel_for_onsets(onsets, scenario, shield, start_year, end_year)
+              for scenario, onsets in scenario_onsets.items()]
     panel = pd.concat(panels, ignore_index=True).sort_values(["scenario", "entity", "year"])
     if panel["scenario"].isna().any():
         raise ValueError("Generated panel contains unlabeled scenario rows")
     diagnostic = four_nation_cardinality_diagnostic(panel)
+    baseline_diagnostic = diagnostic.loc[diagnostic["scenario"] == "baseline"].copy()
+    grid_panels = []
+    baseline_onsets = scenario_onsets["baseline"]
+    for onsets in build_onset_grid(baseline_onsets, onset_grid_spec()):
+        scenario = onsets["grid_scenario"].iloc[0]
+        grid_panels.append(_panel_for_onsets(onsets.drop(columns=["grid_scenario"]), scenario, shield, start_year, end_year))
+    grid_panel = pd.concat(grid_panels, ignore_index=True)
+    grid_diagnostic = four_nation_cardinality_diagnostic(grid_panel)
+    grid_summary = summarize_grid(grid_diagnostic, baseline_diagnostic)
     invariance = scenario_cardinality_invariance(panel)
     changes = invariance.loc[(invariance["scenario"] != "baseline") & invariance["four_nation_classification_changed"]].reset_index(drop=True)
     outputs = {
@@ -53,6 +68,8 @@ def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
         "fournations_focal_window.csv": focal_window(diagnostic),
         "fournations_sensitivity_summary.csv": sensitivity_summary(diagnostic),
         "fournations_deviation_detail.csv": deviation_detail(diagnostic),
+        "fournations_onset_grid_summary.csv": grid_summary,
+        "fournations_onset_grid_diagnostic.csv": grid_diagnostic,
         "fournations_years.csv": diagnostic.loc[diagnostic["is_four_nation_year"], ["scenario", "year", "genuine_count", "distance_from_target"]].reset_index(drop=True),
     }
     for filename, frame in outputs.items():
