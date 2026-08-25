@@ -35,22 +35,30 @@ jobs:
 
       - name: Run FourNations structural-output generator
         run: |
-          python empirical/run_fournations_structural_outputs.py --base-dir .
+          python empirical/run_fournations_structural_outputs.py \
+            --base-dir "$GITHUB_WORKSPACE" \
+            --output-dir "$GITHUB_WORKSPACE/results"
+          echo "Generated files:"
+          find "$GITHUB_WORKSPACE/results" -maxdepth 1 -type f -print
 
       - name: Validate generated artifacts
         run: |
-          test -f results/genuine_panel_documented_scenarios.csv
-          test -f results/fournations_cardinality_invariance.csv
-          test -f results/fournations_classification_changes.csv
-          test -f results/fournations_years.csv
+          ls -la "$GITHUB_WORKSPACE/results"
+          test -f "$GITHUB_WORKSPACE/results/genuine_panel_documented_scenarios.csv"
+          test -f "$GITHUB_WORKSPACE/results/fournations_cardinality_invariance.csv"
+          test -f "$GITHUB_WORKSPACE/results/fournations_classification_changes.csv"
+          test -f "$GITHUB_WORKSPACE/results/fournations_years.csv"
           python - <<'PY'
+          import os
           import pandas as pd
-          for path in [
-              'results/genuine_panel_documented_scenarios.csv',
-              'results/fournations_cardinality_invariance.csv',
-              'results/fournations_classification_changes.csv',
-              'results/fournations_years.csv',
+          root = os.environ['GITHUB_WORKSPACE']
+          for name in [
+              'genuine_panel_documented_scenarios.csv',
+              'fournations_cardinality_invariance.csv',
+              'fournations_classification_changes.csv',
+              'fournations_years.csv',
           ]:
+              path = os.path.join(root, 'results', name)
               df = pd.read_csv(path)
               if df.empty:
                   raise SystemExit(f'Generated artifact is empty: {path}')
@@ -61,8 +69,8 @@ jobs:
         with:
           name: fournations-structural-outputs
           path: |
-            results/genuine_panel_documented_scenarios.csv
-            results/fournations_cardinality_invariance.csv
-            results/fournations_classification_changes.csv
-            results/fournations_years.csv
+            ${{ github.workspace }}/results/genuine_panel_documented_scenarios.csv
+            ${{ github.workspace }}/results/fournations_cardinality_invariance.csv
+            ${{ github.workspace }}/results/fournations_classification_changes.csv
+            ${{ github.workspace }}/results/fournations_years.csv
           if-no-files-found: error
