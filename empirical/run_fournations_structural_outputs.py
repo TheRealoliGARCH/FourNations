@@ -17,6 +17,7 @@ from empirical.fournations_onset_sensitivity import build_onset_grid, onset_grid
 
 
 def build_scenario_onsets(base_dir):
+    base_dir = Path(base_dir)
     seed = pd.read_csv(base_dir / "data/raw/nuclear_onsets_seed.csv")
     scenarios = pd.read_csv(base_dir / "data/raw/nuclear_onset_scenarios.csv")
     sensitive = {"Israel", "India", "Pakistan"}
