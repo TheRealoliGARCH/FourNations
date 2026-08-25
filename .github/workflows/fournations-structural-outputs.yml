@@ -35,7 +35,7 @@ jobs:
 
       - name: Run FourNations structural-output generator
         run: |
-          python empirical/run_fournations_structural_outputs.py --base-dir .
+          python -m empirical.run_fournations_structural_outputs --base-dir .
 
       - name: Validate generated artifacts
         run: |
