@@ -49,10 +49,15 @@ def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
     changes = invariance.loc[
         (invariance["scenario"] != "baseline") & invariance["four_nation_classification_changed"]
     ].reset_index(drop=True)
+    fournations_years = diagnostic.loc[
+        diagnostic["is_four_nation_year"],
+        ["scenario", "year", "genuine_count", "distance_from_target"],
+    ].reset_index(drop=True)
 
     panel.to_csv(output_dir / "genuine_panel_documented_scenarios.csv", index=False)
     diagnostic.to_csv(output_dir / "fournations_cardinality_invariance.csv", index=False)
     changes.to_csv(output_dir / "fournations_classification_changes.csv", index=False)
+    fournations_years.to_csv(output_dir / "fournations_years.csv", index=False)
     return panel, diagnostic, changes
 
 
