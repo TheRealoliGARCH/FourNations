@@ -1,4 +1,13 @@
-scenario,entity,onset_year,onset_interpretation,evidence_status,notes
-baseline,Israel,1967,estimated acquisition convention,seed,Repository seed baseline
-baseline,India,1974,first nuclear test,seed,Repository seed baseline
-baseline,Pakistan,1998,first nuclear test,seed,Repository seed baseline
+scenario,entity,onset_year,onset_interpretation,evidence_status,evidence_id,notes
+baseline,Israel,1967,estimated acquisition convention,seed,REPOSITORY-SEED,Repository seed baseline
+baseline,India,1974,first nuclear test,seed,REPOSITORY-SEED,Repository seed baseline
+baseline,Pakistan,1998,first nuclear test,seed,REPOSITORY-SEED,Repository seed baseline
+israel_late_1966,Israel,1966,first bombs manufactured,documented,SIPRI-YB-2001,SIPRI Yearbook 2001 states Israel has been a nuclear weapon power since late 1966 when first bombs were manufactured
+israel_late_1966,India,1974,first nuclear test,seed,REPOSITORY-SEED,Baseline retained
+israel_late_1966,Pakistan,1998,first nuclear test,seed,REPOSITORY-SEED,Baseline retained
+india_overt_1998,Israel,1967,estimated acquisition convention,seed,REPOSITORY-SEED,Baseline retained
+india_overt_1998,India,1998,public demonstration of nuclear weapon capability,documented,SIPRI-YB-1999,SIPRI Yearbook 1999 records the 1998 tests; scenario uses overt demonstration rather than first-test convention
+india_overt_1998,Pakistan,1998,first nuclear test,seed,REPOSITORY-SEED,Baseline retained
+joint_documented,Israel,1966,first bombs manufactured,documented,SIPRI-YB-2001,Documented Israel alternative
+joint_documented,India,1998,public demonstration of nuclear weapon capability,documented,SIPRI-YB-1999,Documented India alternative
+joint_documented,Pakistan,1998,first nuclear test,seed,REPOSITORY-SEED,No separate alternative introduced
