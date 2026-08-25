@@ -1,9 +1,21 @@
 from pathlib import Path
+import argparse
 import pandas as pd
 
-from empirical.build_snp_shield_panel import build_snp_shield_panel
-from empirical.propagate_nuclear_scenarios import apply_onset_scenario, merge_with_shield
-from empirical.fournations_structural_tests import four_nation_cardinality_diagnostic, scenario_cardinality_invariance
+try:
+    from empirical.build_snp_shield_panel import build_snp_shield_panel
+    from empirical.propagate_nuclear_scenarios import apply_onset_scenario, merge_with_shield
+    from empirical.fournations_structural_tests import (
+        four_nation_cardinality_diagnostic,
+        scenario_cardinality_invariance,
+    )
+except ModuleNotFoundError:
+    from build_snp_shield_panel import build_snp_shield_panel
+    from propagate_nuclear_scenarios import apply_onset_scenario, merge_with_shield
+    from fournations_structural_tests import (
+        four_nation_cardinality_diagnostic,
+        scenario_cardinality_invariance,
+    )
 
 
 def build_scenario_onsets(base_dir):
@@ -48,4 +60,15 @@ def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
 
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--base-dir", default=".")
+    parser.add_argument("--output-dir", default="results")
+    parser.add_argument("--start-year", type=int, default=1950)
+    parser.add_argument("--end-year", type=int, default=2025)
+    args = parser.parse_args()
+    run(
+        base_dir=args.base_dir,
+        output_dir=args.output_dir,
+        start_year=args.start_year,
+        end_year=args.end_year,
+    )
