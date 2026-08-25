@@ -1,21 +1,18 @@
 from pathlib import Path
+import sys
 import argparse
 import pandas as pd
 
-try:
-    from empirical.build_snp_shield_panel import build_snp_shield_panel
-    from empirical.propagate_nuclear_scenarios import apply_onset_scenario, merge_with_shield
-    from empirical.fournations_structural_tests import (
-        four_nation_cardinality_diagnostic,
-        scenario_cardinality_invariance,
-    )
-except ModuleNotFoundError:
-    from build_snp_shield_panel import build_snp_shield_panel
-    from propagate_nuclear_scenarios import apply_onset_scenario, merge_with_shield
-    from fournations_structural_tests import (
-        four_nation_cardinality_diagnostic,
-        scenario_cardinality_invariance,
-    )
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
+
+from empirical.build_snp_shield_panel import build_snp_shield_panel
+from empirical.propagate_nuclear_scenarios import apply_onset_scenario, merge_with_shield
+from empirical.fournations_structural_tests import (
+    four_nation_cardinality_diagnostic,
+    scenario_cardinality_invariance,
+)
 
 
 def build_scenario_onsets(base_dir):
