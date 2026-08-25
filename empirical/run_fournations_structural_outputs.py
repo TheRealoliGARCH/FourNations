@@ -46,9 +46,9 @@ def run(base_dir=".", output_dir="results", start_year=1950, end_year=2025):
     panels = []
     for scenario, onsets in build_scenario_onsets(base_dir).items():
         nuclear = apply_onset_scenario(onsets, scenario, start_year, end_year)
-        scenario_shield = shield.copy()
-        scenario_shield["scenario"] = scenario
-        panels.append(merge_with_shield(nuclear, scenario_shield))
+        scenario_panel = merge_with_shield(nuclear, shield)
+        scenario_panel["scenario"] = scenario
+        panels.append(scenario_panel)
     panel = pd.concat(panels, ignore_index=True).sort_values(["scenario", "entity", "year"])
     if panel["scenario"].isna().any():
         raise ValueError("Generated panel contains unlabeled scenario rows")
